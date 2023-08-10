@@ -1,4 +1,4 @@
-#include "mont.h"
+#include "monty.h"
 /**
  * pall - starting from the top print all values.
  * @stack: dbl ptr to head of stack
@@ -9,7 +9,7 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *head;
 
-	(void)(line_numer); /*unused parameter, cast to avoid issues*/
+	(void)(line_number); /*unused parameter, cast to avoid issues*/
 
 	head = *stack; /*assign value of dbl pter to head*/
 
