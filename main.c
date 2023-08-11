@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
-		printf("%s\n", line);
+		monty_op(line);
 	}
 	free(line);
 	fclose(fp);
