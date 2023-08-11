@@ -2,28 +2,19 @@
 /**
  * pall - starting from the top print all values.
  * @stack: dbl ptr to head of stack
- * @line_number: being executed from the script file
+ * @line_number: line # opcode is on
  * Return: void
  */
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *head;
+	(void)line_number;
+	stack_t *counter;
 
-	(void)(line_number); /*unused parameter, cast to avoid issues*/
+	counter = *stack;
 
-	head = *stack; /*assign value of dbl pter to head*/
-
-	while (head != NULL)
+	while (counter != NULL)
 	{
-		printf("%d\n", head->n); /*print value of current node*/
-
-		head = head->next;
-
-
-		if (head == *stack) /*if end has been reached*/
-					/*exit loop*/
-		{
-			return;
-		}
+		printf("%d\n", counter->n); /*print value stored in current node*/
+		counter = counter->next; /*move to next node in the list*/
 	}
 }

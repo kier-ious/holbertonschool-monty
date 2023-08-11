@@ -7,24 +7,19 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *arg;
-	int n;
+	stack_t *tmp; /* tmp pointer to var */
 
-	arg = strtok(NULL, "\n\t\r ");
+	tmp = *stack; /* store current head in tmp */
+	tmp = malloc(sizeof(stack_t)); /* allocate mem for new node */
+	if (tmp == NULL)
+		free(tmp);
+	tmp->n = line_number; /* assigns value to new node */
+	tmp->next = *stack;
+	tmp->prev = NULL;
 
-	if (arg == NULL || !isdigit(arg[0]) && arg[0] != '-')
+	if ((*stack) != NULL) /*check if head isn't NULL */
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
+		(*stack)->prev = tmp; /* update prev ptr of head */
 	}
-
-	n = atoi(arg); /*Converts valid str rep of int to real int*/
-
-	if (!add_node(stack, n)) /*add int as new node to stack*/
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE); /*if adding node fails print error msg*/
-	}
-
-	var.stack_len++; /*increment vars that track len of stack*/
+		(*stack) = tmp; /* update head to point to tmp */
 }
