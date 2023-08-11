@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <ctype.h>
-extern char **environ;
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -46,5 +46,6 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+int is_digit(char *str);
 void (*monty_op(char *s))(stack_t **stack, unsigned int line_number);
 #endif
