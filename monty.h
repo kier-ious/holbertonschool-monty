@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <ctype.h>
-
+#define WHITESPACE " \n\r\t"
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -46,6 +46,8 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
-int is_digit(char *str);
+int is_a_digit(char *str);
 void (*monty_op(char *s))(stack_t **stack, unsigned int line_number);
+int check_line(char *line, stack_t **stack, unsigned int line_number);
+int _isdigit(int c);
 #endif
