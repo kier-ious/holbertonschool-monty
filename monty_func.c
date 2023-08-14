@@ -46,7 +46,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (new_node == NULL)
 	{
 		free(new_node);
-		dprintf(STDOUT_FILENO, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = push_arg; /* assigns value to new node */
@@ -93,7 +93,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	track = *stack;
 	if (track == NULL)
 	{
-		dprintf(STDOUT_FILENO, "L%u: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", track->n);
@@ -110,7 +110,7 @@ void pop(stack_t **stack, unsigned int line_number)
 
 	if ((*stack) == NULL)
 	{
-		dprintf(STDOUT_FILENO, "L%u: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	tmp = *stack;
