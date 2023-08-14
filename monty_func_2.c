@@ -7,18 +7,18 @@
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-	stack_t *counter;
+	stack_t *tracker;
 	int tmp;
 
-	counter = *stack;
-	if (counter == NULL || counter->next == NULL)
+	tracker = *stack;
+	if (tracker == NULL || tracker->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tmp = counter->n;
-	counter->n = counter->next->n;
-	counter->next->n = tmp;
+	tmp = tracker->n;
+	tracker->n = tracker->next->n;
+	tracker->next->n = tmp;
 
 }
 #include "monty.h"

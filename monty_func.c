@@ -33,7 +33,7 @@ char *check_line(char *line, stack_t **stack, unsigned int line_number)
 }
 /**
  * push - PUSH an integer onto the stack
- * @stack: ddl pter to start of stack
+ * @stack: dbl pter to start of stack
  * @line_number: script line number
  * Return: void
  */
@@ -70,14 +70,14 @@ void push(stack_t **stack, unsigned int line_number)
 void pall(stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
-	stack_t *traverse;
+	stack_t *track;
 
-	traverse = *stack;
+	track = *stack;
 
-	while (traverse != NULL)
+	while (track != NULL)
 	{
-		printf("%d\n", traverse->n); /*print value stored in current node*/
-		traverse = traverse->next; /*move to next node in the list*/
+		printf("%d\n", track->n); /*print value stored in current node*/
+		track = track->next; /*move to next node in the list*/
 	}
 }
 #include "monty.h"
@@ -88,15 +88,15 @@ void pall(stack_t **stack, unsigned int line_number)
 */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *traverse;
+	stack_t *track;
 
-	traverse = *stack;
-	if (traverse == NULL)
+	track = *stack;
+	if (track == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", traverse->n);
+	printf("%d\n", track->n);
 }
 #include "monty.h"
 /**
