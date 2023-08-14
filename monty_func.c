@@ -88,15 +88,15 @@ void pall(stack_t **stack, unsigned int line_number)
 */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *counter;
+	stack_t *traverse;
 
-	counter = *stack;
-	if (counter == NULL)
+	traverse = *stack;
+	if (traverse == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", counter->n);
+	printf("%d\n", traverse->n);
 }
 #include "monty.h"
 /**
