@@ -46,7 +46,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (new_node == NULL)
 	{
 		free(new_node);
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = push_arg; /* assigns value to new node */
