@@ -13,7 +13,7 @@ void swap(stack_t **stack, unsigned int line_number)
 	tracker = *stack;
 	if (tracker == NULL || tracker->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		dprintf(STDOUT_FILENO, "L%d: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	tmp = tracker->n;
@@ -34,7 +34,7 @@ void add(stack_t **stack, unsigned int line_number)
 
 	if (tmp == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		dprintf(STDOUT_FILENO, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 		while (tmp)
@@ -44,7 +44,7 @@ void add(stack_t **stack, unsigned int line_number)
 		}
 	if (stack == NULL || (*stack)->next == NULL || i <= 1)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		dprintf(STDOUT_FILENO, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 		sum = (*stack)->next->n + (*stack)->n;

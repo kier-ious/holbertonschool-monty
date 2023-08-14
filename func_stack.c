@@ -16,7 +16,7 @@ void read_file(char *filename, stack_t **stack)
 	fp = fopen(filename, "r");
 	if (fp == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		dprintf(STDOUT_FILENO, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 	char *line = malloc(sizeof(char) * 50);
@@ -32,7 +32,7 @@ void read_file(char *filename, stack_t **stack)
 		f = monty_op(line);
 		if (f == NULL)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_count, line);
+			dprintf(STDOUT_FILENO, "L%d: unknown instruction %s\n", line_count, line);
 			exit(EXIT_FAILURE);
 		}
 		f(stack, line_count);
