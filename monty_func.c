@@ -1,4 +1,36 @@
 #include "monty.h"
+int push_arg;
+/**
+ * check_line - parses a line for an opcode and arguments
+ * @line: the line to be parsed
+ * @stack: pointer to the head of the stack
+ * @line_number: the current line number
+ * Return: 0 on success -1 on failure
+ */
+char *check_line(char *line, stack_t **stack, unsigned int line_number)
+{
+	char *op_code, *arg;
+	(void)stack;
+
+	op_code = strtok(line, WHITESPACE);
+	if (op_code == NULL)
+		return (NULL);
+
+	if (strcmp(op_code, "push") == 0)
+	{
+		arg = strtok(NULL, WHITESPACE);
+		if (is_a_digit(arg) == 0 && arg != NULL)
+		{
+			push_arg = atoi(arg);
+		}
+		else
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			exit(EXIT_FAILURE);
+		}
+	}
+	return (op_code);
+}
 /**
  * push - PUSH an integer onto the stack
  * @stack: ddl pter to start of stack
@@ -7,25 +39,25 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp; /* tmp pointer to var */
+	stack_t *new_node; /* tmp pointer to var */
+	(void)line_number;
 
-	if (!stack)
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
 	{
+		free(new_node);
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tmp = malloc(sizeof(stack_t)); /* allocate mem for new node */
-	if (tmp == NULL)
-		free(tmp);
-	tmp->n = line_number; /* assigns value to new node */
-	tmp->next = *stack;
-	tmp->prev = NULL;
+	new_node->n = push_arg; /* assigns value to new node */
+	new_node->next = *stack;
+	new_node->prev = NULL;
 
 	if ((*stack) != NULL) /*check if head isn't NULL */
 	{
-		(*stack)->prev = tmp; /* update prev ptr of head */
+		(*stack)->prev = new_node; /* update prev ptr of head */
 	}
-		(*stack) = tmp; /* update head to point to tmp */
+		(*stack) = new_node; /* update head to point to tmp */
 
 }
 #include "monty.h"
@@ -38,14 +70,14 @@ void push(stack_t **stack, unsigned int line_number)
 void pall(stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
-	stack_t *counter;
+	stack_t *traverse;
 
-	counter = *stack;
+	traverse = *stack;
 
-	while (counter != NULL)
+	while (traverse != NULL)
 	{
-		printf("%d\n", counter->n); /*print value stored in current node*/
-		counter = counter->next; /*move to next node in the list*/
+		printf("%d\n", traverse->n); /*print value stored in current node*/
+		traverse = traverse->next; /*move to next node in the list*/
 	}
 }
 #include "monty.h"
@@ -89,20 +121,4 @@ void pop(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = NULL;
 	}
 	free(tmp);
-}
-/**
- * free_dlistint - free a list
- * @head: pointer to first node
- *
- */
-void free_dlistint(stack_t *head)
-{
-	stack_t *tmp;
-
-	while (head != NULL)
-	{
-		tmp = head->next;
-		free(head);
-		head = tmp;
-	}
 }

@@ -1,5 +1,75 @@
 #include "monty.h"
 /**
+ * read_file - reads a bytecode file and runs commands
+ * @filename: pathname to file
+ * @stack: pointer to the top of the stack
+ */
+void read_file(char *filename, stack_t **stack)
+{
+	FILE *fp;
+	size_t len = 50;
+	int num_chars = 0;
+	unsigned int line_count = 1;
+	/*char *line;*/
+	void (*f)(stack_t **stack, unsigned int line_number);
+
+	fp = fopen(filename, "r");
+	if (fp == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
+	}
+	char *line = malloc(sizeof(char) * 50);
+
+	while ((num_chars = getline(&line, &len, fp)) != -1)
+	{
+		line = check_line(line, stack, line_count);
+		if (line == NULL)
+		{
+			line_count++;
+			continue;
+		}
+		f = monty_op(line);
+		if (f == NULL)
+		{
+			fprintf(stderr, "L%d: unknown instruction %s\n", line_count, line);
+			exit(EXIT_FAILURE);
+		}
+		f(stack, line_count);
+		line_count++;
+	}
+	free(line);
+	fclose(fp);
+}
+#include "monty.h"
+/**
+ * monty_op - checks opcode and returns
+ * @s: function
+ * Return: void
+*/
+void (*monty_op(char *s))(stack_t **stack, unsigned int)
+{
+	instruction_t instruction[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+		{NULL, NULL}
+	};
+	int i;
+
+	i = 0;
+	/* iterate over ops array */
+	while (instruction[i].opcode != NULL && strcmp(instruction[i].opcode, s) != 0)
+	{
+		i++;
+	}
+	return (instruction[i].f);
+}
+#include "monty.h"
+/**
  *  * _isdigit - function that checks for a digit (0 through 9)
  * @c: character to be checked
  * Return: 1 for a character that will be a digit or 0 for any else
@@ -35,72 +105,26 @@ int is_a_digit(char *str)
 			continue;
 		}
 		if (_isdigit(str[i]))
+		{
 			return (0);
-		i++;
+			i++;
+		}
 	}
 	return (1);
 }
-#include "monty.h"
 /**
- * check_line - appending the strings
- * @line: line to be parsed
- * @stack: pointer to the head of the stack
- * @line_number: the line # in which opcide appears
- * Return: 0 on success
+ * free_dlistint - free a list
+ * @head: pointer to first node
+ *
  */
-int check_line(char *line, stack_t **stack, unsigned int line_number)
+void free_dlistint(stack_t *head)
 {
-	char *op_code, *arg;
+	stack_t *tmp;
 
-	(void)stack;
-
-	op_code = strtok(line, WHITESPACE);
-	if (op_code == NULL)
-		return (0);
-
-	if (strcmp(op_code, "push") == 0)
+	while (head != NULL)
 	{
-		arg = strtok(NULL, WHITESPACE);
-		if (arg == NULL)
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-			exit(EXIT_FAILURE);
-		}
-		if (is_a_digit(arg))
-		{
-			/*int push_arg = atoi(arg);*/
-		}
-		else
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		}
+		tmp = head->next;
+		free(head);
+		head = tmp;
 	}
-	return (0);
-}
-#include "monty.h"
-/**
- * monty_op - checks opcode and returns
- * @s: function
- * Return: void
-*/
-void (*monty_op(char *s))(stack_t **stack, unsigned int)
-{
-	instruction_t instruction[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{"nop", nop},
-		{NULL, NULL}
-	};
-	int i;
-
-	i = 0;
-	/* iterate over ops array */
-	while (instruction[i].opcode != NULL && *(instruction[i].opcode) != *s)
-	{
-		i++;
-	}
-	return (instruction[i].f);
 }

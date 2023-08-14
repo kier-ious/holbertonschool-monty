@@ -38,6 +38,20 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+/**
+ * struct global_variable - opcoode and its function
+ * @file: the opcode
+ * @push_arg: function to handle the opcode
+ * @buffer: pointer to
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO Holberton project
+ */
+typedef struct global_variable
+{
+	FILE *file;
+	int push_arg;
+	char *buffer;
+} global_var;
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
@@ -46,8 +60,11 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
-int is_a_digit(char *str);
+void free_stack_t(stack_t *head);
+void free_dlistint(stack_t *head);
+void read_file(char *filename, stack_t **stack);
 void (*monty_op(char *s))(stack_t **stack, unsigned int line_number);
-int check_line(char *line, stack_t **stack, unsigned int line_number);
+char *check_line(char *line, stack_t **stack, unsigned int line_number);
+int is_a_digit(char *str);
 int _isdigit(int c);
 #endif
