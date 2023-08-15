@@ -82,21 +82,22 @@ void pall(stack_t **stack, unsigned int line_number)
 }
 #include "monty.h"
 /**
- * pint - printing top node
- * @stack: ptr to list
- * @line_number: current line # of monty
-*/
-void pint(stack_t **stack, unsigned int line_number)
+ * pint - prints the top element of the stack
+ * @top: top element of stack
+ * @line_number: current line number in monty file
+ */
+void pint(stack_t **top, unsigned int line_number)
 {
-	stack_t *track;
+	stack_t *tracker;
 
-	track = *stack;
-	if (track == NULL)
+	tracker = *top;
+	if (tracker == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", track->n);
+
+	printf("%d\n", tracker->n);
 }
 #include "monty.h"
 /**

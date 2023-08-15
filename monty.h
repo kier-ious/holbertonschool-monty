@@ -38,20 +38,6 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-/**
- * struct global_variable - opcoode and its function
- * @file: the opcode
- * @push_arg: function to handle the opcode
- * @buffer: pointer to
- * Description: opcode and its function
- * for stack, queues, LIFO, FIFO Holberton project
- */
-/*typedef struct global_variable
-{
-	FILE *file;
-	int push_arg;
-	char *buffer;
-} global_var;*/
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
